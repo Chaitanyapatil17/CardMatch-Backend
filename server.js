@@ -22,7 +22,6 @@ const app = express();
   - No app.options("*") (causes crash in Express 5)
 */
 
-const cors = require("cors");
 
 app.use(cors({
   origin: [
