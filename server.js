@@ -22,16 +22,17 @@ const app = express();
   - No app.options("*") (causes crash in Express 5)
 */
 
+const cors = require("cors");
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://cardmatch-by-chaitanya.netlify.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
-app.options("*", cors());
+
 // Routes
 app.use("/api/cards", cardRoutes);
 app.use("/api/recommend", recommendRoutes);
