@@ -15,14 +15,7 @@ connectDB();
 
 const app = express();
 
-/*
-  ✅ CLEAN CORS CONFIG
-  - Allows Vercel frontend
-  - Allows local dev
-  - No app.options("*") (causes crash in Express 5)
-*/
-
-
+// ✅ CORS
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -31,6 +24,13 @@ app.use(cors({
   credentials: true
 }));
 
+// ✅ THIS WAS MISSING
+app.use(express.json());
+
+// Optional health check
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 // Routes
 app.use("/api/cards", cardRoutes);
@@ -39,7 +39,6 @@ app.use("/api/history", historyRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/favorites", favoriteRoutes);
 
-// Render provides PORT automatically
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
